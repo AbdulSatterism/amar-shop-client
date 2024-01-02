@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import useCart from '../../../hooks/useCart/useCart';
@@ -18,7 +18,7 @@ const Product = ({ product }) => {
             const cartItem = {
                 itemId: _id, name, image, price, email: user?.email
             };
-            fetch('http://localhost:5000/carts', {
+            fetch('https://amar-shop-server.onrender.com/carts', {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'

@@ -5,7 +5,7 @@ const useProducts = () => {
     const { data: products = [], isLoading: loading, refetch } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/products');
+            const res = await fetch('https://amar-shop-server.onrender.com/products');
             return res.json();
         }
     })

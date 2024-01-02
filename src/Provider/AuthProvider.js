@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
             //get and set jwt token in local storage
 
             if (currentUser) {
-                axios.post('http://localhost:5000/jwt', { email: currentUser.email })
+                axios.post('https://amar-shop-server.onrender.com/jwt', { email: currentUser.email })
                     .then(data => {
                         // console.log(data.data.token)
                         localStorage.setItem('access-token', data.data.token);

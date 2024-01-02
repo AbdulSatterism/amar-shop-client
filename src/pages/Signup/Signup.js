@@ -19,13 +19,14 @@ const Signup = () => {
         setError('')
         createUser(data.email, data.password)
             .then(result => {
+                // eslint-disable-next-line
                 const user = result.user;
 
                 updateUserProfile(data.name)
                     .then(() => {
                         const saveUser = { name: data.name, email: data.email }
                         // set user in database
-                        fetch('http://localhost:5000/users', {
+                        fetch('https://amar-shop-server.onrender.com/users', {
                             method: "POST",
                             headers: {
                                 'content-type': 'application/json'

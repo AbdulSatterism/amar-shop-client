@@ -83,7 +83,7 @@ export const router = createBrowserRouter([
 
                 path: "update/:id",
                 element: <UpdateProduct></UpdateProduct>,
-                loader: ({ params }) => fetch(`http://localhost:5000/update/${params.id}`)
+                loader: ({ params }) => fetch(`https://amar-shop-server.onrender.com/update/${params.id}`)
             },
         ]
     }
