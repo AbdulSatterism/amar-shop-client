@@ -12,6 +12,8 @@ import AddProduct from "../../pages/Dashboard/AddProduct/AddProduct";
 import ManageProduct from "../../pages/Dashboard/ManageProduct/ManageProduct";
 import UpdateProduct from "../../pages/Dashboard/UpdateProduct/UpdateProduct";
 import DashboardHome from "../../pages/Dashboard/DashboardHome/DashboardHome";
+import MyCart from "../../pages/Dashboard/MyCart/MyCart";
+import Payment from "../../pages/Dashboard/Payment/Payment";
 
 
 export const router = createBrowserRouter([
@@ -44,6 +46,18 @@ export const router = createBrowserRouter([
             <DashboardLayout></DashboardLayout>
         </PrivateRoute>,
         children: [
+            //user path
+            {
+                path: 'my-cart',
+                element: <MyCart></MyCart>
+            },
+            //payment not implemnt yet!!
+            {
+                path: 'payment',
+                element: <Payment></Payment>
+            },
+
+
             //admin path
             {
 

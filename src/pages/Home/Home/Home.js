@@ -1,6 +1,7 @@
 import React from 'react';
 import CarouselSlider from '../Carousel/CarouselSlider';
 import DemoProducts from '../Products/DemoProducts';
+import Contact from '../Contact/Contact';
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
         <div>
             <CarouselSlider></CarouselSlider>
             <DemoProducts></DemoProducts>
+            <Contact></Contact>
         </div>
     );
 };

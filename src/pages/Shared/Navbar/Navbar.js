@@ -19,7 +19,7 @@ const Navbar = () => {
         <li><Link className='text-xl  ' to='/all-product'>All Product</Link></li>
         <li><Link className='text-xl  ' to='/dashboard'>Dashboard</Link></li>
         <li>
-            <Link to='/'>
+            <Link to='/dashboard/my-cart'>
                 <button className="btn btn-sm">
                     <FaShoppingCart></FaShoppingCart>
                     <div className="badge badge-secondary">+{cart?.length || 0}</div>
@@ -36,7 +36,7 @@ const Navbar = () => {
         }
     </>
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-slate-300 top-0 sticky z-10 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
