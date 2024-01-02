@@ -24,15 +24,24 @@ const DashboardLayout = () => {
                     {
                         isAdmin ? <>
 
+                            <li className='text-whit'><NavLink to='/dashboard/product-value' ><FaHome></FaHome> Product & Value</NavLink></li>
                             <li className='text-whit'><NavLink to='/dashboard/add-product' ><GiClothes></GiClothes> Add Product</NavLink></li>
-                            <li className='text-whit'><NavLink to='/dashboard/manageitems' ><FaWallet></FaWallet> Manage Item</NavLink></li>
+                            <li className='text-whit'><NavLink to='/dashboard/manage-product' ><FaWallet></FaWallet> Manage Item</NavLink></li>
+
                             <li className=' '><NavLink to='/dashboard/all-users' ><FaUsers></FaUsers> All Users</NavLink></li>
+
+                            <li className=' '>
+                                <NavLink to='/dashboard/my-cart'><FaShoppingCart></FaShoppingCart> My Cart
+                                    <span className="badge badge-secondary">+{cart?.length || 0}</span>
+                                </NavLink>
+
+                            </li>
                         </>
                             :
                             <>
 
                                 <li className=' '>
-                                    <NavLink to='/dashboard/mycart'><FaShoppingCart></FaShoppingCart> My Cart
+                                    <NavLink to='/dashboard/my-cart'><FaShoppingCart></FaShoppingCart> My Cart
                                         <span className="badge badge-secondary">+{cart?.length || 0}</span>
                                     </NavLink>
 

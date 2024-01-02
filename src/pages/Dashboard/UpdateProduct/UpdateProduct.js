@@ -1,17 +1,20 @@
 import React from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import SectionTitle from '../../../Component/SectionTitle';
 import Swal from 'sweetalert2';
-import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useForm } from 'react-hook-form';
 
-const AddProduct = () => {
+const UpdateProduct = () => {
+    const product = useLoaderData();
     const [axiosSecure] = useAxiosSecure()
     const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
 
     const imageHostingToken = process.env.REACT_APP_image_token;
     const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`
 
-    const onSubmit = data => {
+    const handleUpdate = data => {
         const formData = new FormData();
         formData.append('image', data.image[0])
         fetch(imageHostingURL, {
@@ -23,39 +26,40 @@ const AddProduct = () => {
                 if (imageRes.success) {
                     const imgURL = imageRes.data.display_url;
                     const { name, quantity, price, description } = data;
-                    const newProduct = { name, image: imgURL, price: parseFloat(price), quantity: parseInt(quantity), description }
-                    // console.log('added new product demo', newProduct)
-                    axiosSecure.post("/products", newProduct)
+                    const updateProduct = { name, image: imgURL, price: parseFloat(price), quantity: parseInt(quantity), description }
+
+                    axiosSecure.put(`/update/${product?._id}`, updateProduct)
                         .then(data => {
                             reset();
-                            if (data.data.insertedId) {
+                            if (data.data.modifiedCount > 0) {
                                 Swal.fire({
                                     position: 'top-center',
                                     icon: 'success',
-                                    title: 'New item added successfully',
+                                    title: 'product updated successfully',
                                     showConfirmButton: false,
                                     timer: 1500
                                 })
                             }
+                            navigate('/dashboard/manage-product');
                         })
                 }
             })
     };
 
 
-
     return (
         <div className='w-full px-10 '>
 
-            <SectionTitle subHeading="What's new" heading="Add a Product"></SectionTitle>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <SectionTitle subHeading="What's new" heading="Update a Product"></SectionTitle>
+            <h1>{product?.name}</h1>
+            <form onSubmit={handleSubmit(handleUpdate)}>
                 <div className="form-control w-full mb-4 ">
                     <label className="label">
                         <span className="label-text font-semibold">Product Name* </span>
                     </label>
-                    <input type="text" placeholder="Product Name"
-                        {...register("name", { required: true, maxLength: 120 })}
+                    <input type="text"
+                        defaultValue={product?.name}
+                        {...register("name", { required: true })}
                         className="input input-bordered w-full  " />
 
                 </div>
@@ -66,7 +70,8 @@ const AddProduct = () => {
                         <label className="label">
                             <span className="label-text font-semibold">quantity* </span>
                         </label>
-                        <input type="number" placeholder="Type here"
+                        <input type="number"
+                            defaultValue={product?.quantity}
                             {...register("quantity", { required: true })}
                             className="input input-bordered w-full  " />
 
@@ -75,7 +80,8 @@ const AddProduct = () => {
                         <label className="label">
                             <span className="label-text font-semibold">Price* </span>
                         </label>
-                        <input type="number" placeholder="Type here"
+                        <input type="number"
+                            defaultValue={product?.price}
                             {...register("price", { required: true })}
                             className="input input-bordered w-full  " />
 
@@ -87,8 +93,9 @@ const AddProduct = () => {
                         <span className="label-text">Product Description*</span>
                     </label>
                     <textarea
-                        {...register("description", { required: true })}
-                        className="textarea textarea-bordered h-24" placeholder="Product details"></textarea>
+                        defaultValue={product?.description}
+                        {...register("description")}
+                        className="textarea textarea-bordered h-24" ></textarea>
                 </div>
 
                 <div className="form-control w-full mb-4">
@@ -100,11 +107,11 @@ const AddProduct = () => {
                         className="file-input file-input-bordered w-full  " />
 
                 </div>
-                <input className='btn btn-sm mt-4 ' type="submit" value="Add Product" />
+                <input className='btn btn-sm mt-4 ' type="submit" value="Update Product" />
             </form>
 
         </div>
     );
 };
 
-export default AddProduct;
+export default UpdateProduct;

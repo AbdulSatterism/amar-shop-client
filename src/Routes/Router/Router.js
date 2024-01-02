@@ -9,6 +9,9 @@ import DashboardLayout from "../../layout/DashboardLayout";
 import AllUser from "../../pages/Dashboard/AllUser/AllUser";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import AddProduct from "../../pages/Dashboard/AddProduct/AddProduct";
+import ManageProduct from "../../pages/Dashboard/ManageProduct/ManageProduct";
+import UpdateProduct from "../../pages/Dashboard/UpdateProduct/UpdateProduct";
+import DashboardHome from "../../pages/Dashboard/DashboardHome/DashboardHome";
 
 
 export const router = createBrowserRouter([
@@ -44,6 +47,11 @@ export const router = createBrowserRouter([
             //admin path
             {
 
+                path: "product-value",
+                element: <AdminRoute><DashboardHome></DashboardHome></AdminRoute>
+            },
+            {
+
                 path: "all-users",
                 element: <AdminRoute><AllUser></AllUser></AdminRoute>
             },
@@ -51,7 +59,18 @@ export const router = createBrowserRouter([
 
                 path: "add-product",
                 element: <AdminRoute><AddProduct></AddProduct></AdminRoute>
-            }
+            },
+            {
+
+                path: "manage-product",
+                element: <AdminRoute><ManageProduct></ManageProduct></AdminRoute>
+            },
+            {
+
+                path: "update/:id",
+                element: <UpdateProduct></UpdateProduct>,
+                loader: ({ params }) => fetch(`http://localhost:5000/update/${params.id}`)
+            },
         ]
     }
 ]);
